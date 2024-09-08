@@ -11,6 +11,7 @@ const RightPanel = () => {
 	if (!selectedConversation) return <ChatPlaceHolder />;
 
 	const conversationName = "John Doe";
+  const isGroup = true
 
 	return (
 		<div className='w-3/4 flex flex-col'>
@@ -26,7 +27,7 @@ const RightPanel = () => {
 						</Avatar>
 						<div className='flex flex-col'>
 							<p>{conversationName}</p>
-							{/* {isGroup && <GroupMembersDialog />} */}
+							{isGroup && <GroupMembersDialog />}
 						</div>
 					</div>
 

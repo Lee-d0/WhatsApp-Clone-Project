@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { v } from "convex/values"
 import { query, mutation } from "./_generated/server"
 

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
+import { Toaster } from "react-hot-toast"
 
 
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <ConvexClientProvider>
             {children}
+            <Toaster />
             </ConvexClientProvider>
         </ThemeProvider>
       </body>

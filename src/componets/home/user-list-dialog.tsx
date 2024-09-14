@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 "use client"
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -18,6 +19,7 @@ import { ImageIcon, MessageSquareDiff } from "lucide-react";
 import { Id } from "../../../convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import toast from "react-hot-toast";
 
 
 const UserListDialog = () => {
@@ -31,6 +33,7 @@ const UserListDialog = () => {
     const dialogCloseRef = useRef<HTMLButtonElement>(null)
 
     const createConversation = useMutation(api.conversation.createConversation)
+    const generateUploadUrl = useMutation(api.conversation.generateUploadUrl)
     const me = useQuery(api.users.getMe)
     const users = useQuery(api.users.getUsers)
 
@@ -42,20 +45,43 @@ const UserListDialog = () => {
 
             let conversationId;
             if(!isGroup){
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 conversationId = await createConversation({
                     participants: [...selectedUsers, me?._id!],
                     isGroup: false,
                 })
                 
             }else{
+                const postUrl = await generateUploadUrl()
+
+
+                const result = await fetch(postUrl, {
+                    method: "POST",
+                    headers: {"Content-Type": selectedImage?.type!},
+                    body: selectedImage,
+                })
+
+                const { storageId } = await result.json()
+
+                await createConversation({
+                    participants:[...selectedUsers, me?._id!],
+                    isGroup: true,
+                    admin: me?._id!,
+                    groupName,
+                    groupImage: storageId,
+                })
                
             }
 
             dialogCloseRef.current?.click()
             setSelectedUsers([])
+            setGroupName("")
+            setSelectedImage(null)
+            // todo later
 
         } catch (error) {
-            console.log(error)
+            toast.error("Failed to create conversation")
+            console.error(error)
         } finally{
             setIsLoading(false)
         }

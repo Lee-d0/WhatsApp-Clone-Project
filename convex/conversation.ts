@@ -32,7 +32,7 @@ export const createConversation = mutation({
         let groupImage;
 
         if(args.groupImage){
-// todo
+            groupImage = (await ctx.storage.getUrl(args.groupImage)) as string
         }
 
         const conversationId = await ctx.db.insert("conversation", {
@@ -47,4 +47,9 @@ export const createConversation = mutation({
         return conversationId
 
     }
+})
+
+
+export const generateUploadUrl = mutation(async (ctx) => {
+    return await ctx.storage.generateUploadUrl()
 })

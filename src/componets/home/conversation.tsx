@@ -6,7 +6,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConversationStore } from "@/store/chat-store";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const Conversation = ({ conversation }: { conversation: any }) => {
 	const conversationImage = conversation.groupImage || conversation.image
 	const conversationName = conversation.groupName || conversation.name

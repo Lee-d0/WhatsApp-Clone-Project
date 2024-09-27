@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 import ChatBubble from "./chat-bubble";
 import { useQuery } from "convex/react";

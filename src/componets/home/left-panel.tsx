@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ListFilter, LogOut, Search } from "lucide-react";
 import { Input } from "../ui/input";
 import ThemeSwitch from "./theme-switch";
@@ -74,4 +74,4 @@ const LeftPanel = () => {
 		</div>
 	);
 };
-export default LeftPanel;
+export default LeftPanel

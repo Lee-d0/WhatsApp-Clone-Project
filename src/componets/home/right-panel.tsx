@@ -53,4 +53,4 @@ const RightPanel = () => {
 		</div>
 	);
 };
-export default RightPanel;
+export default RightPanel
